@@ -96,10 +96,12 @@ Route::middleware(['auth', 'rolecheck:user'])->group(function () {
         return view('user.profile');  // Adjust the view name as needed
     })->name('user.profile');
     
-    Route::get('/user/items', function () {
-        return view('user.items');  // Adjust the view name as needed
-    })->name('user.items');
-    
+    Route::get('/user/items', [RentalController::class, 'userRentals'])->name('user.items');
+    Route::get('/user/items/{id}', [RentalController::class, 'show'])->name('user.items.details');
+    Route::get('/user/items/book', function () {
+        return view('user.items.book');  // Adjust the view name as needed
+    })->name('user.items.book');
+
     Route::get('/user/items/category', function () {
         return view('user.items.category');  // Adjust the view name as needed
     })->name('user.items.category');

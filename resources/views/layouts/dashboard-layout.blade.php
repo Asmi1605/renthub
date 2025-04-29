@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name', 'RentHub') }} Dashboard</title>
     @vite(['resources/css/app.css', 'resources/js/app.js']) <!-- if using Vite -->
+    @stack('styles')
 </head>
 
 <body class="bg-gray-100 font-sans antialiased">

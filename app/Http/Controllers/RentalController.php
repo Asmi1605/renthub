@@ -12,4 +12,18 @@ class RentalController extends Controller
         $rentals = Rental::with('vendor')->latest()->get();
         return view('admin.manage-rentals', compact('rentals'));
     }
+
+    // 👇 Add this new method properly here
+    public function userRentals()
+    {
+        $rentals = Rental::with('vendor')->latest()->get();
+        return view('user.items.index', compact('rentals'));
+    }
+
+
+    public function show($id)
+    {
+        $rental = Rental::with('vendor')->findOrFail($id);
+        return view('user.items.details', compact('rental'));
+    }
 }

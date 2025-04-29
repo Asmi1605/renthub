@@ -39,7 +39,7 @@
                         <h3 class="text-xl font-bold">{{ $booking->rental->title ?? 'N/A' }}</h3>
 
                         <div class="text-sm space-y-1">
-                            <p>📍 Category: <span class="font-semibold">{{ $booking->rental->category ?? 'N/A' }}</span></p>
+                            <p>🏷️ Category: <span class="font-semibold">{{ $booking->rental->category ?? 'N/A' }}</span></p>
                             <p>📅 {{ \Carbon\Carbon::parse($booking->start_date)->format('d M Y') }} → {{ \Carbon\Carbon::parse($booking->end_date)->format('d M Y') }}</p>
                             <p>💵 ₹{{ number_format($booking->total_price, 2) }}</p>
                         </div>

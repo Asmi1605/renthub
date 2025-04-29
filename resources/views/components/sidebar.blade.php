@@ -82,12 +82,12 @@
             📦 <span class="ml-3">Items</span>
         </a>
     </li>
-    <li>
+    <!-- <li>
         <a href="{{ route('user.items.category') }}"
            class="flex items-center p-2 text-gray-700 rounded hover:bg-indigo-100 transition">
             🗂️ <span class="ml-3">Items by Category</span>
         </a>
-    </li>
+    </li> -->
     <li>
         <a href="{{ route('user.wallet') }}"
            class="flex items-center p-2 text-gray-700 rounded hover:bg-indigo-100 transition">
