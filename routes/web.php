@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RentalController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\UserDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,9 +82,7 @@ Route::middleware(['auth', 'rolecheck:vendor'])->group(function () {
 // User Protected Routes
 // ====================
 Route::middleware(['auth', 'rolecheck:user'])->group(function () {
-    Route::get('/user/dashboard', function () {
-        return view('user.dashboard');
-    })->name('user.dashboard');
+    Route::get('/user/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
 
     Route::get('/user/bookings', [BookingController::class, 'index'])->name('user.bookings');
     Route::get('/user/booking/{id}', [BookingController::class, 'show'])->name('user.booking.details');
@@ -121,6 +120,10 @@ Route::middleware(['auth', 'rolecheck:user'])->group(function () {
     Route::get('/user/settings', function () {
         return view('user.settings');  // Adjust the view name as needed
     })->name('user.settings');
+
+    Route::get('/checkout/{rental}', [BookingController::class, 'checkout'])->name('checkout');
+    Route::post('/store', [BookingController::class, 'store'])->name('booking.store');
+    Route::get('/success/{id}', [BookingController::class, 'success'])->name('booking.success');
 });
 
 

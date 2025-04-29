@@ -3,7 +3,7 @@
 @section('content')
     <!-- Dashboard Overview Section -->
     <div class="mb-6">
-        <h1 class="text-2xl font-bold text-gray-800">Welcome, User 👋</h1>
+        <h1 class="text-2xl font-bold text-gray-800">Welcome, {{ Auth::user()->name }} 👋</h1>
         <p class="text-gray-600 mt-1">Here's a quick overview of your rental activities.</p>
     </div>
 
@@ -16,12 +16,12 @@
         </div>
         <div class="bg-white p-6 rounded-xl shadow">
             <h3 class="text-lg font-semibold">Upcoming Bookings</h3>
-            <div class="text-2xl font-bold text-gray-800">3</div>
+            <div class="text-2xl font-bold text-gray-800">{{ $upcomingCount }}</div>
             <a href="{{ route('user.bookings') }}" class="text-indigo-600 hover:text-indigo-800 mt-2 block">View All Bookings</a>
         </div>
         <div class="bg-white p-6 rounded-xl shadow">
             <h3 class="text-lg font-semibold">Past Bookings</h3>
-            <div class="text-2xl font-bold text-gray-800">5</div>
+            <div class="text-2xl font-bold text-gray-800">{{ $completedCount }}</div>
             <a href="{{ route('user.bookings') }}" class="text-indigo-600 hover:text-indigo-800 mt-2 block">View All Bookings</a>
         </div>
     </div>
@@ -35,37 +35,27 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <!-- Sample Item Card 1 -->
-            <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg">
-                <img src="https://via.placeholder.com/150" alt="Item Image" class="w-full h-48 object-cover rounded-lg mb-4">
-                <h3 class="text-lg font-semibold">Rental Item 1</h3>
-                <p class="text-gray-600">₹500/day</p>
-                <div class="mt-2 flex justify-between items-center">
-                    <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg">Book Now</button>
-                    <span class="text-gray-500">Available</span>
+            @foreach ($rentals as $rental)
+                <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg">
+                    <img src="{{ $rental->image_url ?? 'https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg' }}" alt="{{ $rental->title }}" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-lg font-semibold">{{ $rental->title }}</h3>
+                    <p class="text-gray-600">₹{{ $rental->price }}/day</p>
+                    <div class="mt-2 flex justify-between items-center">
+                        <a href="{{ route('user.items.details', $rental->id) }}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg">Book Now</a>
+                        <span class="{{ $rental->status === 'active' ? 'text-green-600' : 'text-red-500' }}">
+    {{ $rental->status === 'active' ? 'Available' : 'Booked' }}
+</span>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Sample Item Card 2 -->
-            <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg">
-                <img src="https://via.placeholder.com/150" alt="Item Image" class="w-full h-48 object-cover rounded-lg mb-4">
-                <h3 class="text-lg font-semibold">Rental Item 2</h3>
-                <p class="text-gray-600">₹800/day</p>
-                <div class="mt-2 flex justify-between items-center">
-                    <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg">Book Now</button>
-                    <span class="text-gray-500">Booked</span>
-                </div>
-            </div>
-
-            <!-- More items will go here -->
+            @endforeach
         </div>
     </div>
 
     <!-- Booking Calendar Section -->
     <div class="mb-6">
         <h2 class="text-xl font-semibold mb-4">Booking Calendar</h2>
-        <!-- Integrate FullCalendar.js here for the calendar view -->
         <div id="calendar"></div>
+        {{-- Integrate FullCalendar JS here --}}
     </div>
 
     <!-- Recent Transactions Section -->
@@ -78,7 +68,6 @@
             </div>
 
             <div class="space-y-4">
-                <!-- Sample Transaction 1 -->
                 <div class="flex justify-between items-center">
                     <div>
                         <h4 class="font-semibold">Add Funds</h4>
@@ -87,7 +76,6 @@
                     <div class="text-green-600">+₹2000</div>
                 </div>
 
-                <!-- Sample Transaction 2 -->
                 <div class="flex justify-between items-center">
                     <div>
                         <h4 class="font-semibold">Booking Payment</h4>
@@ -95,8 +83,6 @@
                     </div>
                     <div class="text-red-600">-₹500</div>
                 </div>
-
-                <!-- More transactions will go here -->
             </div>
         </div>
     </div>

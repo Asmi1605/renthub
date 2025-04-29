@@ -15,8 +15,16 @@ class Rental extends Model
         'category',
         'price',
         'status',
+        'description',
+        'images',
+        'tags',
     ];
 
+    protected $casts = [
+        'images' => 'array',
+        'tags' => 'array',
+    ];
+    
     public function vendor()
     {
         return $this->belongsTo(User::class, 'vendor_id');

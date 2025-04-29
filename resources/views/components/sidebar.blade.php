@@ -94,18 +94,18 @@
             💳 <span class="ml-3">Wallet</span>
         </a>
     </li>
-    <li>
+    <!-- <li>
         <a href="{{ route('user.reviews') }}"
            class="flex items-center p-2 text-gray-700 rounded hover:bg-indigo-100 transition">
             ⭐ <span class="ml-3">Ratings & Reviews</span>
         </a>
-    </li>
-    <li>
+    </li> -->
+    <!-- <li>
         <a href="{{ route('user.refunds') }}"
            class="flex items-center p-2 text-gray-700 rounded hover:bg-indigo-100 transition">
             🔄 <span class="ml-3">Refunds & Cancellations</span>
         </a>
-    </li>
+    </li> -->
     <li>
         <a href="{{ route('user.notifications') }}"
            class="flex items-center p-2 text-gray-700 rounded hover:bg-indigo-100 transition">
