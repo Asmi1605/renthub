@@ -11,8 +11,8 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
         <div class="bg-white p-6 rounded-xl shadow">
             <h3 class="text-lg font-semibold">Wallet Balance</h3>
-            <div class="text-2xl font-bold text-gray-800">₹0.00</div>
-            <a href="#" class="text-indigo-600 hover:text-indigo-800 mt-2 block">Add Funds / Withdraw</a>
+            <div class="text-2xl font-bold text-gray-800">₹{{ number_format($walletBalance, 2) }}</div>
+            <a href="{{ route('wallet.show') }}" class="text-indigo-600 hover:text-indigo-800 mt-2 block">Add Funds / Withdraw</a>
         </div>
         <div class="bg-white p-6 rounded-xl shadow">
             <h3 class="text-lg font-semibold">Upcoming Bookings</h3>
@@ -64,26 +64,24 @@
         <div class="bg-white p-6 rounded-xl shadow">
             <div class="flex justify-between items-center mb-4">
                 <h3 class="text-lg font-semibold">Transaction History</h3>
-                <a href="{{ route('user.wallet') }}" class="text-indigo-600 hover:text-indigo-800">View All</a>
+                <a href="{{ route('wallet.show') }}" class="text-indigo-600 hover:text-indigo-800">View All</a>
             </div>
 
             <div class="space-y-4">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h4 class="font-semibold">Add Funds</h4>
-                        <p class="text-gray-500 text-sm">₹2000 added to wallet</p>
-                    </div>
-                    <div class="text-green-600">+₹2000</div>
-                </div>
-
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h4 class="font-semibold">Booking Payment</h4>
-                        <p class="text-gray-500 text-sm">Rental for Item 1</p>
-                    </div>
-                    <div class="text-red-600">-₹500</div>
-                </div>
+    @forelse ($recentTransactions as $transaction)
+        <div class="flex justify-between items-center">
+            <div>
+                <h4 class="font-semibold">{{ $transaction->type === 'credit' ? 'Add Funds' : 'Booking Payment' }}</h4>
+                <p class="text-gray-500 text-sm">{{ $transaction->description ?? 'No description' }}</p>
             </div>
+            <div class="{{ $transaction->type === 'credit' ? 'text-green-600' : 'text-red-600' }}">
+                {{ $transaction->type === 'credit' ? '+' : '-' }}₹{{ number_format($transaction->amount, 2) }}
+            </div>
+        </div>
+    @empty
+        <p class="text-gray-500">No recent transactions found.</p>
+    @endforelse
+</div>
         </div>
     </div>
 

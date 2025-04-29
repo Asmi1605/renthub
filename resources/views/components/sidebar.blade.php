@@ -6,12 +6,14 @@
     <ul class="space-y-4">
 
         <!-- Common for All Roles -->
-        <li>
-            <a href="{{ route('dashboard') }}"
+        <!-- <li>
+            <a href="{{ route('redirect') }}"
                class="flex items-center p-2 text-gray-700 rounded hover:bg-indigo-100 transition">
                 🏠 <span class="ml-3">Home</span>
             </a>
-        </li>
+        </li> -->
+
+      
 
         @if($role === 'admin')
             <li>
@@ -70,12 +72,7 @@
             📅 <span class="ml-3">My Bookings</span>
         </a>
     </li>
-    <li>
-        <a href="{{ route('user.profile') }}"
-           class="flex items-center p-2 text-gray-700 rounded hover:bg-indigo-100 transition">
-            👤 <span class="ml-3">Profile</span>
-        </a>
-    </li>
+    
     <li>
         <a href="{{ route('user.items') }}"
            class="flex items-center p-2 text-gray-700 rounded hover:bg-indigo-100 transition">
@@ -89,7 +86,7 @@
         </a>
     </li> -->
     <li>
-        <a href="{{ route('user.wallet') }}"
+        <a href="{{ route('wallet.show') }}"
            class="flex items-center p-2 text-gray-700 rounded hover:bg-indigo-100 transition">
             💳 <span class="ml-3">Wallet</span>
         </a>
@@ -107,7 +104,7 @@
         </a>
     </li> -->
     <li>
-        <a href="{{ route('user.notifications') }}"
+        <a href="{{ route('notifications') }}"
            class="flex items-center p-2 text-gray-700 rounded hover:bg-indigo-100 transition">
             🔔 <span class="ml-3">Notifications</span>
         </a>
@@ -118,6 +115,12 @@
             ⚙️ <span class="ml-3">Settings</span>
         </a>
     </li> -->
+    <li>
+        <a href="{{ route('profile.edit') }}"
+           class="flex items-center p-2 text-gray-700 rounded hover:bg-indigo-100 transition">
+            👤 <span class="ml-3">Profile</span>
+        </a>
+    </li>
 @endif
 
 

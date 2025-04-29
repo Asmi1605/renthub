@@ -9,6 +9,7 @@ use App\Http\Controllers\RentalController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\UserDashboardController;
+use App\Http\Controllers\WalletController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,9 +22,7 @@ Route::get('/', function () {
 });
 
 // Common Dashboard (after login, we will auto-redirect properly later)
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [RedirectController::class, 'index'])->middleware('auth')->name('dashboard');
 
 // Profile Routes (for all logged-in users)
 Route::middleware('auth')->group(function () {
@@ -33,7 +32,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Redirect after login based on role
-Route::get('/redirect', [RedirectController::class, 'index'])->middleware('auth');
+Route::get('/redirect', [RedirectController::class, 'index'])->middleware('auth')->name('redirect');
 
 
 
@@ -87,13 +86,9 @@ Route::middleware(['auth', 'rolecheck:user'])->group(function () {
     Route::get('/user/bookings', [BookingController::class, 'index'])->name('user.bookings');
     Route::get('/user/booking/{id}', [BookingController::class, 'show'])->name('user.booking.details');
     
-    Route::get('/user/wallet', function () {
-        return view('user.wallet');  // Adjust the view name as needed
-    })->name('user.wallet');
 
-    Route::get('/user/profile', function () {
-        return view('user.profile');  // Adjust the view name as needed
-    })->name('user.profile');
+
+
     
     Route::get('/user/items', [RentalController::class, 'userRentals'])->name('user.items');
     Route::get('/user/items/{id}', [RentalController::class, 'show'])->name('user.items.details');
@@ -113,9 +108,9 @@ Route::middleware(['auth', 'rolecheck:user'])->group(function () {
         return view('user.refunds');  // Adjust the view name as needed
     })->name('user.refunds');
     
-    Route::get('/user/notifications', function () {
-        return view('user.notifications');  // Adjust the view name as needed
-    })->name('user.notifications'); 
+    Route::get('/notifications', function () {
+        return view('notifications.index');  // Adjust the view name as needed
+    })->name('notifications'); 
     
     Route::get('/user/settings', function () {
         return view('user.settings');  // Adjust the view name as needed
@@ -124,6 +119,10 @@ Route::middleware(['auth', 'rolecheck:user'])->group(function () {
     Route::get('/checkout/{rental}', [BookingController::class, 'checkout'])->name('checkout');
     Route::post('/store', [BookingController::class, 'store'])->name('booking.store');
     Route::get('/success/{id}', [BookingController::class, 'success'])->name('booking.success');
+
+    Route::get('/wallet', [WalletController::class, 'show'])->name('wallet.show');
+    Route::post('/wallet/add-funds', [WalletController::class, 'addFunds'])->name('wallet.addFunds');
+    Route::post('/wallet/withdraw-funds', [WalletController::class, 'withdrawFunds'])->name('wallet.withdrawFunds');
 });
 
 
