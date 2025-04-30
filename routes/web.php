@@ -72,9 +72,16 @@ Route::middleware(['auth', 'rolecheck:admin'])->prefix('admin')->name('admin.')-
 // Vendor Protected Routes
 // ====================
 Route::middleware(['auth', 'rolecheck:vendor'])->group(function () {
-    Route::get('/vendor/dashboard', function () {
-        return view('vendor.dashboard');
-    });
+    
+    Route::get('/vendor/dashboard', [RentalController::class, 'Vendordashboard'])->name('vendor.dashboard');
+    Route::get('/vendor/items/create', [RentalController::class, 'create'])->name('vendor.items.create')->middleware('auth');
+    Route::get('/vendor/items/edit/{id}', [RentalController::class, 'editVendorItem'])->name('vendor.items.edit')->middleware('auth');
+    Route::put('/vendor/items/update/{id}', [RentalController::class, 'updateVendorItem'])->name('vendor.items.update')->middleware('auth');
+    Route::post('/vendor/items/store', [RentalController::class, 'store'])->name('vendor.items.store')->middleware('auth');
+    Route::get('/vendor/bookings', [RentalController::class, 'Vendordashboard'])->name('vendor.bookings');
+    Route::get('/vendor/withdraw', [RentalController::class, 'Vendordashboard'])->name('vendor.withdraw');
+    Route::get('/vendor/my-rentals', [RentalController::class, 'myRentalsVendors'])->name('vendor.items.rentals');
+    Route::get('/vendor/analytics', [RentalController::class, 'Vendordashboard'])->name('vendor.analytics');
 });
 
 // ====================

@@ -48,13 +48,13 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('vendor.add-rental') }}"
+                <a href="{{ route('vendor.items.create') }}"
                    class="flex items-center p-2 text-gray-700 rounded hover:bg-indigo-100 transition">
                     ➕ <span class="ml-3">Add New Rental</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('vendor.my-rentals') }}"
+                <a href="{{ route('vendor.items.rentals') }}"
                    class="flex items-center p-2 text-gray-700 rounded hover:bg-indigo-100 transition">
                     📦 <span class="ml-3">My Rentals</span>
                 </a>
