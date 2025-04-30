@@ -65,14 +65,15 @@ class RentalController extends Controller
             'category' => $request->category,
             'description' => $request->description,
             'tags' => explode(',', $request->tags),
-            'images' => $images,
+            'images' => json_encode($images),
+            'price' => $request->price_day,
             'price_day' => $request->price_day,
             'price_week' => $request->price_week,
             'price_month' => $request->price_month,
             'status' => 'active',
         ]);
 
-        return redirect()->route('user.rentals')->with('success', 'Rental item added successfully.');
+        return redirect()->route('vendor.items.rentals')->with('success', 'Rental item added successfully.');
     }
 
     // Show edit form

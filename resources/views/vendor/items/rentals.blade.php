@@ -21,7 +21,7 @@
                     <tbody class="bg-white divide-y divide-gray-100">
                         @foreach ($items as $item)
                             @php
-                                $images = json_decode($item->images, true);
+                                $images = json_decode($item->images ?? '[]', true);
                             @endphp
                             <tr>
                                 <td class="px-6 py-4">
