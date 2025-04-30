@@ -6,9 +6,8 @@
 - 🧍 User authentication & profile management  
 - 🧾 Vendor dashboard to list rentable items  
 - 📦 Categorized listings (cars, cameras, electronics, etc.)  
-- 🗓️ Booking system with availability tracking  
-- 💬 Contact and messaging system (optional add-on)  
-- 💳 Payment gateway integration (in progress/optional)  
+- 🗓️ Booking system with availability tracking    
+- 💳 Payment gateway integration   
 - 🔐 Admin panel for managing users and items  
 - 🎯 Built with Laravel, Vite, Bootstrap, and MySQL
 
