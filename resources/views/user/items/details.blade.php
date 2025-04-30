@@ -11,9 +11,12 @@
                 @if(!empty($rental->category))
                     <span class="text-xs px-2 py-1 bg-indigo-100 text-indigo-700 rounded-full">{{ $rental->category }}</span>
                 @endif
+                @php
+    $tags = is_string($rental->tags) ? json_decode($rental->tags, true) : ($rental->tags ?? []);
+@endphp
 
                 @if(!empty($rental->tags))
-                    @foreach(json_decode($rental->tags, true) ?? [] as $tag)
+                    @foreach($tags as $tag)
                         <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded-full">{{ $tag }}</span>
                     @endforeach
                 @endif

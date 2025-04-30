@@ -20,7 +20,7 @@ class RentalController extends Controller
     // Vendor View - List their own items
     public function userRentals()
     {
-        $rentals = Rental::where('vendor_id', Auth::id())->latest()->get();
+        $rentals = Rental::latest()->get(); // Fetch all rentals
         return view('user.items.index', compact('rentals'));
     }
 
