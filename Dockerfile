@@ -1,30 +1,30 @@
-FROM php:8.1-apache
+# Use the official PHP image from Docker Hub
+FROM php:8.0-fpm
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    libpng-dev \
-    libjpeg-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip unzip curl git \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+    git \
+    unzip \
+    libzip-dev \
+    && docker-php-ext-install zip
 
-# Enable Apache mod_rewrite
-RUN a2enmod rewrite
+# Install Composer globally
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Set working directory
-WORKDIR /var/www/html
+# Set the working directory in the container
+WORKDIR /var/www
 
-# Copy everything into the container
-COPY . .
+# Copy the composer.json and composer.lock files
+COPY composer.json composer.lock ./
 
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Install the dependencies (without dev dependencies)
 RUN composer install --no-dev --optimize-autoloader
 
-# Set file permissions
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 775 /var/www/html/storage
+# Copy the rest of the project files
+COPY . .
 
-# Expose port 80
+# Expose the port your app runs on (adjust if necessary)
 EXPOSE 80
+
+# Command to run your application (replace this with your actual start command)
+CMD ["php-fpm"]
