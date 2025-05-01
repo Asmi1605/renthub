@@ -24,6 +24,10 @@
                     <option value="bike">Bike</option>
                     <option value="house">House</option>
                     <option value="electronics">Electronics</option>
+                    <option value="electronics">Clothes</option>
+                    <option value="electronics">Jewellery</option>
+                    <option value="electronics">Others</option>
+
                 </select>
                 @error('category') <p class="text-sm text-red-600 mt-1">{{ $message }}</p> @enderror
             </div>
